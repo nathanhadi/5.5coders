@@ -1,7 +1,6 @@
 import boto3
 from botocore.exceptions import ClientError
 
-
 users_info_table_name = "users_readings_info"
 client_name = "dynamodb"
 endpoint_url = "http://localhost:8000"
@@ -41,7 +40,11 @@ def add_reading_goal(user_name, reading_name, goal_name, goal_date):
     table = get_users_info_table()
     reading = table.update_item(Key = {'user' : user_name,
                                        'reading_name' : reading_name},
-           UpdateExpression = "set goal.name=:goal_name, goal.date=:goal_date")
+            UpdateExpression = "set goal.name=:n, goal.date=:d",
+            ExpressionAttributeValues={
+                ':n': goal_name,
+                ':d': goal_date
+            })
     return reading
 
 def add_reading(user_name, email, password, reading_name,
