@@ -22,7 +22,7 @@ def get_preferences(user_name):
           aws_secret_access_key=secret_key,
           region_name=region)
     dynamodb = dynamodb_session.resource('dynamodb')
-    table=dynamodb.Table(User_Details)
+    table=dynamodb.Table("User_Details")
     response = table.query(
         KeyConditionExpression=Key('Username').eq(user_name)
     )
@@ -99,3 +99,5 @@ def add_reading(user_name, email, password, reading_name,
                 }
             )
     return reading
+
+print(get_preferences("Shail"))
