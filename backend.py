@@ -34,7 +34,7 @@ def get_readings(user_name):
         region_name=region)
 
     dynamodb = dynamodb_session.resource('dynamodb')
-    table=dynamodb.Table("User_Readings_2")
+    table=dynamodb.Table("Readings")
 
     response = table.query(
         KeyConditionExpression=Key('Username').eq(user_name)
@@ -43,6 +43,7 @@ def get_readings(user_name):
 
 def get_reading(user_name, reading_name):
     readings = get_readings(user_name)
+    print(type(readings))
     #search through this list for what you need
 
 
@@ -99,5 +100,3 @@ def add_reading(user_name, email, password, reading_name,
                 }
             )
     return reading
-
-print(get_preferences("Shail"))
