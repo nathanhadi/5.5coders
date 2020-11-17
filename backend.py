@@ -43,8 +43,7 @@ def get_readings(user_name):
 
 def get_reading(user_name, reading_name):
     readings = get_readings(user_name)
-    print(type(readings))
-    #search through this list for what you need
+    return(list(filter(lambda book: book['Title'] == reading_name, readings)))
 
 
 # def get_readings(user_name, dynamodb=None):
