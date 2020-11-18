@@ -69,9 +69,15 @@ def get_reading(user_name, reading_name):
 ########## ADDERS ##############
 
 def add_reading_goal(user_name, reading_name, goal_name, goal_date):
-    table = get_users_info_table()
+    dynamodb_session = Session(aws_access_key_id=access_key,
+        aws_secret_access_key=secret_key,
+        region_name=region)
+
+    dynamodb = dynamodb_session.resource('dynamodb')
+    table=dynamodb.Table("Readings")
+    
     reading = table.update_item(Key = {'user' : user_name,
-                                       'reading_name' : reading_name},
+                                       'title' : reading_name},
             UpdateExpression = "set goal.name=:n, goal.date=:d",
             ExpressionAttributeValues={
                 ':n': goal_name,
@@ -81,14 +87,20 @@ def add_reading_goal(user_name, reading_name, goal_name, goal_date):
 
 def add_reading(user_name, email, password, reading_name,
                 pages, chapters, tags, goal_name, goal_date, reminder_pref):
-    table = get_users_info_table()
+    dynamodb_session = Session(aws_access_key_id=access_key,
+        aws_secret_access_key=secret_key,
+        region_name=region)
+
+    dynamodb = dynamodb_session.resource('dynamodb')
+    table=dynamodb.Table("Readings")
+    
     reading = table.put_item(
                Item = {
                     'user' : user_name,
+                    'title' : reading_name,
                     'email' : email,
                     'password' : password,
                     'reminder' : reminder_pref,
-                    'reading_name' : reading_name,
                     'pages' : pages,
                     'chapters' : chapters,
                     'tags' : tags,
