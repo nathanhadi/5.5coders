@@ -11,12 +11,6 @@ users_info_table_name = "users_readings_info"
 client_name = "dynamodb"
 endpoint_url = "http://localhost:8000"
 
-# def get_users_info_table(dynamodb=None):
-#     if not dynamodb:
-#         dynamodb = boto3.resource(client_name, endpoint_url)
-#     table = dynamodb.Table(table_name)
-#     return table
-
 def get_preferences(user_name):
     dynamodb_session = Session(aws_access_key_id=access_key,
           aws_secret_access_key=secret_key,
@@ -44,27 +38,6 @@ def get_readings(user_name):
 def get_reading(user_name, reading_name):
     readings = get_readings(user_name)
     return(list(filter(lambda book: book['Title'] == reading_name, readings)))
-
-
-# def get_readings(user_name, dynamodb=None):
-#     table = get_users_info_table()
-#     try:
-#         readings = table.get_item(Key={'user': user_name})
-#     except ClientError as e:
-#         print(e.response['Error']['Message'])
-#     else:
-#         return readings
-
-# def get_reading(user_name, reading_name, dynamodb=None):
-#     table = get_users_info_table()
-#     try:
-#         reading = table.get_item(Key = {'user' : user_name,
-#                                          'reading_name' : reading_name})
-#     except ClientError as e:
-#         print(e.response['Error']['Message'])
-#     else:
-#         return reading
-
 
 ########## ADDERS ##############
 
