@@ -7,9 +7,6 @@ access_key = "AKIA35XVUTN4TI7KDUU6"
 secret_key = "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"
 region = "us-east-1"
 table_name = "User_Details"
-users_info_table_name = "users_readings_info"
-client_name = "dynamodb"
-endpoint_url = "http://localhost:8000"
 
 def get_preferences(user_name):
     dynamodb_session = Session(aws_access_key_id=access_key,
