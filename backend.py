@@ -65,10 +65,10 @@ def add_preferences(user_name, email, password, reminder_pref):
     
     preference = table.put_item(
                Item = {
-                    'user' : user_name,
-                    'email' : email,
-                    'password' : password,
-                    'reminder' : reminder_pref,
+                    'Username' : user_name,
+                    'Email' : email,
+                    'Password' : password,
+                    'Reminder_Preferences' : reminder_pref,
                 }
             )
     return preference
@@ -83,13 +83,13 @@ def add_reading(user_name, reading_name, pages, chapters, goal_name, goal_date):
     
     reading = table.put_item(
                Item = {
-                    'user' : user_name,
-                    'title' : reading_name,
-                    'pages' : pages,
-                    'chapters' : chapters,
-                    'goal' : {
-                        'name' : goal_name,
-                        'date' : goal_date
+                    'Username' : user_name,
+                    'Title' : reading_name,
+                    'Pages' : pages,
+                    'Chapters' : chapters,
+                    'Goal' : {
+                        'Name' : goal_name,
+                        'Date' : goal_date
                     }
                 }
             )
