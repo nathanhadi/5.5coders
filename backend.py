@@ -58,8 +58,25 @@ def add_reading_goal(user_name, reading_name, goal_name, goal_date):
             })
     return reading
 
-def add_reading(user_name, email, password, reading_name,
-                pages, chapters, tags, goal_name, goal_date, reminder_pref):
+def add_preferences(user_name, email, password, reminder_pref):
+    dynamodb_session = Session(aws_access_key_id=access_key,
+        aws_secret_access_key=secret_key,
+        region_name=region)
+
+    dynamodb = dynamodb_session.resource('dynamodb')
+    table=dynamodb.Table("User_Details")
+    
+    preference = table.put_item(
+               Item = {
+                    'user' : user_name,
+                    'email' : email,
+                    'password' : password,
+                    'reminder' : reminder_pref,
+                }
+            )
+    return preference
+
+def add_reading(user_name, reading_name, pages, chapters, goal_name, goal_date):
     dynamodb_session = Session(aws_access_key_id=access_key,
         aws_secret_access_key=secret_key,
         region_name=region)
@@ -71,12 +88,8 @@ def add_reading(user_name, email, password, reading_name,
                Item = {
                     'user' : user_name,
                     'title' : reading_name,
-                    'email' : email,
-                    'password' : password,
-                    'reminder' : reminder_pref,
                     'pages' : pages,
                     'chapters' : chapters,
-                    'tags' : tags,
                     'goal' : {
                         'name' : goal_name,
                         'date' : goal_date
