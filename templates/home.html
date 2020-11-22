@@ -141,7 +141,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #704C5E;">
       <a class="navbar-brand" href="./home">
-        <img src="./reading.png" width="30" height="30" alt="">
+        <img src="{{ url_for('static', filename='reading.png') }}" width="30" height="30" alt="">
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -182,7 +182,17 @@
   <div class="container">
     <div class="row">
       <div class="column-bar">
-          <div class="card">
+          {% for reading in readings %}
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{ reading['Title'] }}</h5>
+                <!-- <h6 class="card-subtitle mb-2 text-muted">Tags: UI 422, School</h6> -->
+                <p class="card-text">Next Goal Date: {{ reading['Goal']['Date'] }}</p>
+                <a href="./edit-reading" class="btn">Edit Reading</a>
+              </div>
+            </div>
+          {% endfor %}
+          <!-- <div class="card">
             <div class="card-body">
               <h5 class="card-title">Theory of Design Reading</h5>
               <h6 class="card-subtitle mb-2 text-muted">Tags: UI 422, School</h6>
@@ -207,7 +217,7 @@
               <p class="card-text">Next Goal Date: Dec 21</p>
               <a href="./edit-reading" class="btn">Edit Reading</a>
             </div>
-          </div>
+          </div> -->
 
       </div>
       <div class="column-cal">

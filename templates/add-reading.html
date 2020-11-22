@@ -46,7 +46,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #704C5E;">
       <a class="navbar-brand" href="./home">
-        <img src="./reading.png" width="30" height="30" alt="">
+        <img src="{{ url_for('static', filename='reading.png') }}" width="30" height="30" alt="">
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -80,24 +80,24 @@
 
     <hr>
 
-    <form>
+    <form method="post" action="{{ url_for('add_page') }}">
       <div class="container row">
         <div class="column-left">
           <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" placeholder="Enter Name Here">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name Here" value="{{ request.form.name }}">
           </div>
           <div class="form-group">
             <label for="pages">Page Number</label>
-            <input type="text" class="form-control" id="pages" placeholder="Enter Page # Here">
+            <input type="text" class="form-control" id="pages" name="pages" placeholder="Enter Page # Here" value="{{ request.form.pages }}">
           </div>
           <div class="form-group">
-            <label for="pages">Chapter Number</label>
-            <input type="text" class="form-control" id="pages" placeholder="Enter Chapter # Here (this field is optional)">
+            <label for="chapter">Chapter Number</label>
+            <input type="text" class="form-control" id="chapter" name="chapter" placeholder="Enter Chapter # Here (this field is optional)" value="{{ request.form.chapter }}">
           </div>
           <div class="form-group">
             <label for="tags">Tags</label>
-            <textarea class="form-control" id="tags" rows="2"></textarea>
+            <textarea class="form-control" id="tags" name="tags" rows="2" value="{{ request.form.tags }}"></textarea>
           </div>
         </div>
         <div class="column-right">
@@ -108,7 +108,7 @@
           </a>
           <br>
           <a class="center" href="./home">
-            <button type="button" class="btn btn-lg">Save & Return Home</button>
+            <button type="submit" class="btn btn-lg">Save & Return Home</button>
           </a>
         </div>
       </div>

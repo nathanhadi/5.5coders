@@ -46,7 +46,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #704C5E;">
       <a class="navbar-brand" href="./home">
-        <img src="./reading.png" width="30" height="30" alt="">
+        <img src="{{ url_for('static', filename='reading.png') }}" width="30" height="30" alt="">
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -72,15 +72,15 @@
   <div class="container">
     <h1>Settings</h1>
     <hr>
-    <form>
+    <form method="post" action="{{ url_for('settings_page') }}">
       <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="yes-notifs">
+        <input type="checkbox" class="form-check-input" id="yes-notifs" name="setting" value="Remind">
         <label class="form-check-label" for="yes-notifs">I would like to receive email notifications</label>
       </div>
       <br>
       <div class="column-left form-group">
         <label for="num-times">Remind me __ times...</label>
-        <select class="form-control" id="num-times">
+        <select name="num_times" class="form-control" id="num-times">
           <option>1</option>
           <option>2</option>
           <option>3</option>
@@ -90,21 +90,19 @@
       </div>
       <div class="column-right form-group">
         <label for="time-type">...every ____ </label>
-        <select class="form-control" id="time-type">
+        <select name="frequency" class="form-control" id="time-type">
           <option>day</option>
           <option>week</option>
           <option>month</option>
         </select>
       </div>
+      <div class="container">
+        <br>
+        <a class="" href="./home">
+          <button type="submit" class="btn btn-lg">Save & Return Home</button>
+        </a>
+      </div>
     </form>
-  </div>
-
-
-  <div class="container">
-    <br>
-    <a class="" href="./home">
-      <button type="button" class="btn btn-lg">Save & Return Home</button>
-    </a>
   </div>
 
 </body>

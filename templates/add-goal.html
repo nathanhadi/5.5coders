@@ -122,7 +122,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #704C5E;">
       <a class="navbar-brand" href="./home">
-        <img src="./reading.png" width="30" height="30" alt="">
+        <img src="{{ url_for('static', filename='reading.png') }}" width="30" height="30" alt="">
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -148,24 +148,24 @@
   <div class="container">
     <h1>Add Reading Goal</h1>
     <hr>
-    <form>
+    <form method="post" action="{{ url_for('goal_page') }}">
       <br>
       <div class="form-group">
-        <label for="goal-name">Goal Name</label>
-        <input type="text" class="form-control" id="goal-name" placeholder="Enter Name Here">
+        <label for="name">Goal Name</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name Here" value="{{ request.form.name }}">
       </div>
       <div class="column-left form-group">
         <div class="form-group">
-          <label for="start-date">Start Date</label>
-          <input class="form-control" id="start-date" name="start-date" placeholder="MM/DD/YYY" type="text"/>
+          <label for="start_date">Start Date</label>
+          <input class="form-control" id="start_date" name="start_date" placeholder="MM/DD/YYY" type="text" value="{{ request.form.start_date }}"/>
         </div>
         <div class="column-left form-group">
           <label for="amount">Amount</label>
-          <input type="text" class="form-control" id="amount" placeholder="Enter Amount Here">
+          <input type="text" class="form-control" id="amount" name="amount" placeholder="Enter Amount Here" value="{{ request.form.amount }}">
         </div>
         <div class="column-right form-group">
           <label for="pace-type"> Pace Type </label>
-          <select class="form-control" id="pace-type">
+          <select name="options" class="form-control" id="pace-type">
             <option>pages</option>
             <option>chapters</option>
             <option>sections</option>
@@ -174,51 +174,49 @@
       </div>
       <div class="column-right form-group">
         <div class="form-group">
-          <label for="end-date">End Date</label>
-          <input class="form-control" id="end-date" name="end-date" placeholder="MM/DD/YYY" type="text"/>
+          <label for="end_date">End Date</label>
+          <input class="form-control" id="end_date" name="end_date" placeholder="MM/DD/YYY" type="text" value="{{ request.form.end_date }}"/>
         </div>
         <br>
         <p>Repeat Goal every...</p>
         <div class="btn-group">
           <label class="container_two">Monday 
-            <input type="checkbox">
+            <input type="checkbox" name="date" value="Monday">
             <span class="checkmark"></span>
           </label>     
           <label class="container_two">Tuesday
-            <input type="checkbox">
+            <input type="checkbox" name="date" value="Tuesday">
             <span class="checkmark"></span>
           </label>   
           <label class="container_two"> Wednesday
-            <input type="checkbox">
+            <input type="checkbox" name="date" value="Wednesday">
             <span class="checkmark"></span>
           </label> 
           <label class="container_two"> Thursday
-            <input type="checkbox">
+            <input type="checkbox" name="date" value="Thursday">
             <span class="checkmark"></span>
           </label>   
           <label class="container_two"> Friday
-            <input type="checkbox">
+            <input type="checkbox" name="date" value="Friday">
             <span class="checkmark"></span>
           </label> 
           <label class="container_two"> Saturday
-            <input type="checkbox">
+            <input type="checkbox" name="date" value="Saturday">
             <span class="checkmark"></span>
           </label> 
           <label class="container_two"> Sunday
-            <input type="checkbox">
+            <input type="checkbox" name="date" value="Sunday">
             <span class="checkmark"></span>
           </label> 
         </div>
       </div>
+      <div class="container">
+        <br>
+        <a class="" href="./home">
+          <button type="submit" class="btn btn-lg">Save & Return Home</button>
+        </a>
+      </div>
     </form>
-  </div>
-
-
-  <div class="container">
-    <br>
-    <a class="" href="./home">
-      <button type="button" class="btn btn-lg">Save & Return Home</button>
-    </a>
   </div>
 
 
@@ -236,8 +234,8 @@
 
 <script>
     $(document).ready(function(){
-      var date_input=$('input[name="start-date"]'); //our date input has the name "date"
-      var date_input_two = $('input[name="end-date"]');
+      var date_input=$('input[name="start_date"]'); //our date input has the name "date"
+      var date_input_two = $('input[name="end_date"]');
       var container=$('.container').length>0 ? $('.container').parent() : "body";
       var options={
         format: 'mm/dd/yyyy',
