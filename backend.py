@@ -55,6 +55,24 @@ def add_reading_goal(user_name, reading_name, goal_name, goal_date):
             })
     return reading
 
+### getting "key not matching the schema" error
+def update_reading(user_name, reading_name, pages, chapters):
+    dynamodb_session = Session(aws_access_key_id=access_key,
+        aws_secret_access_key=secret_key,
+        region_name=region)
+
+    dynamodb = dynamodb_session.resource('dynamodb')
+    table=dynamodb.Table("Readings")
+
+    reading = table.update_item(Key = {'user' : user_name,
+                                       'title' : reading_name},
+            UpdateExpression = "set pages=:p, chapters=:c",
+            ExpressionAttributeValues={
+                ':p': pages,
+                ':c': chapters
+            })
+    return reading
+
 def add_preferences(user_name, email, password, reminder_pref):
     dynamodb_session = Session(aws_access_key_id=access_key,
         aws_secret_access_key=secret_key,
