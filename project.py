@@ -44,8 +44,7 @@ def add_page():
         chapter = request.form.get("chapter", None)
         tags = request.form.get("tags", None)
         # Add the reading to the database.
-        back.add_reading(user, name, pages, chapter, "Assigned Reading", "12/09")
-        print(back.get_readings(user))
+        back.add_reading(user, name, pages, chapter, None, None)
         return redirect(url_for('home_page'))
     return render_template('add-reading.html')
 
