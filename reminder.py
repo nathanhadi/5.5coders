@@ -1,6 +1,9 @@
 import smtplib, ssl
 from email.mime.text import MIMEText
+from datetime import date
+import backend
 
+user = "testing1"
 
 def send_reminder(sender_email, receiver_email, message):
     """
@@ -21,9 +24,17 @@ def send_reminder(sender_email, receiver_email, message):
 def main():
     sender_email = "cs465.5.5coders@gmail.com"
     receiver_email = "testingcs465@gmail.com"
+    
+    today = date.today()
+    readings = backend.get_readings(user)
 
-    msg = MIMEText('MESSAGE')
-    msg['Subject'] = 'Test mail'
+    message = "Hi " + user + ", These are your current goals and readings:\n\n"
+
+    for i in readings:
+        message += "         - Title: " + i['Title'] + " | Number of pages: " + i['Reading']['Pages'] + " Number of chapters: " + i['Reading']['Chapters'] + " | Goal Name: " + i['Goal']['Name'] + " by " + i['Goal']['Date'] + "\n"
+
+    msg = MIMEText(message)
+    msg['Subject'] = 'Reading Reminder ' + today.strftime("%m/%d/%Y")
     msg['From'] = sender_email
     msg['To'] = receiver_email
 

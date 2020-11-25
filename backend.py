@@ -38,7 +38,7 @@ def get_reading(user_name, reading_name):
 
 ########## ADDERS ##############
 
-def add_reading_goal(user_name, reading_name, goal_name, goal_date):
+def add_reading_goal(user_name, reading_name, goal_name, goal_start_date): # Need to add , goal_end_date, amount, option, dates
     dynamodb_session = Session(aws_access_key_id=access_key,
         aws_secret_access_key=secret_key,
         region_name=region)
@@ -51,7 +51,7 @@ def add_reading_goal(user_name, reading_name, goal_name, goal_date):
             UpdateExpression = "set goal.name=:n, goal.date=:d",
             ExpressionAttributeValues={
                 ':n': goal_name,
-                ':d': goal_date
+                ':d': goal_start_date
             })
     return reading
 
@@ -98,17 +98,36 @@ def add_reading(user_name, reading_name, pages, chapters, goal_name, goal_date):
 
     dynamodb = dynamodb_session.resource('dynamodb')
     table=dynamodb.Table("Readings")
-    
+
     reading = table.put_item(
                Item = {
                     'Username' : user_name,
                     'Title' : reading_name,
-                    'Pages' : pages,
-                    'Chapters' : chapters,
+                    'Reading' : {
+                        'Pages' : pages,
+                        'Chapters' : chapters
+                    },
                     'Goal' : {
                         'Name' : goal_name,
                         'Date' : goal_date
                     }
                 }
             )
+    return reading
+
+def update_reading(user_name, reading_name, pages, chapters):
+    dynamodb_session = Session(aws_access_key_id=access_key,
+        aws_secret_access_key=secret_key,
+        region_name=region)
+
+    dynamodb = dynamodb_session.resource('dynamodb')
+    table=dynamodb.Table("Readings")
+
+    reading = table.update_item(Key = {'user' : user_name,
+                                       'title' : reading_name},
+            UpdateExpression = "set reading.pages=:p, reading.chapters=:c",
+            ExpressionAttributeValues={
+                ':p': pages,
+                ':c': chapters
+            })
     return reading
